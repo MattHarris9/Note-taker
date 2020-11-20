@@ -1,5 +1,5 @@
-const router = requier("express").Router();
-const store = requier("./../db.store");
+const router = require("express").Router();
+const store = require("./../db.store");
 
 
 // ROUTES
