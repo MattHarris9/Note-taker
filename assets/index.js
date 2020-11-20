@@ -1,9 +1,3 @@
-var express = require("express");
-
-var app = express();
-
-var port = process.env.PORT || 8080;
-
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
