@@ -8,7 +8,7 @@ const app = express ();
 
 const PORT = process.env.PORT || 3000;
 
-const headDir = path.join(_dirname, "/public");
+const headDir = path.join(__dirname, "/public");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
