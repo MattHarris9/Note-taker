@@ -1,30 +1,23 @@
 const express = require ("express");
 const path = require("path");
 const fs = require("fs");
-
-
+const htmlRoutes = require("./routes/htmlRoutes");
 
 const app = express ();
 
 const PORT = process.env.PORT || 3000;
 
-const headDir = path.join(__dirname, "/public");
-
-app.use(express.urlencoded({extended: true}));
+//const headDir = path.join(__dirname, "./public");
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.get("/notes", function(req, res) {
-    res.sendFile(path.join(headDir, "notes.html"));
-});
+app.use ("/",htmlRoutes)
+// app.use(express.static(path.join(__dirname, "./assets/style.css")));
 
 app.get("/api/notes/:id", function(req, res) {
     let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     res.json(savedNotes[Number9(req.params.id)]);
-});
-
-app.get("*", function(req, res) {
-    res.sendFile(path.join(headDir, "index.html"));
 });
 
 app.post("/api/notes", function(req, res) {

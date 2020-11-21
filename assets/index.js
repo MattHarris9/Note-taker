@@ -13,7 +13,7 @@ const getNotes = () => {
     url: "/api/notes",
     method: "GET",
   });
-};
+}; 
 
 // A function for saving a note to the db
 const saveNote = (note) => {
