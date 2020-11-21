@@ -3,14 +3,14 @@ const fs = require("fs");
 
 module.exports = function(app){
 app.get("/api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
     res.json(savedNotes[Number9(req.params.id)]);
 });
 
 app.post("/api/notes", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let savedNote = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
     let newNote = req.body;
-    let uniqueID = (savedNotes.length).toString();
+    let uniqueID = (savedNote.length).toString();
     newNote.id= uniqueID;
     savedNotes.push(newNote);
 
@@ -20,11 +20,11 @@ app.post("/api/notes", function(req, res) {
 });
 
 app.delete("/api/notes/:id", function (req, res) {
-    let savedNotes = JSON.parse(fs.writeFileSync("./db/db.json", "utf8"));
+    let savedNote = JSON.parse(fs.writeFileSync("../db/db.json", "utf8"));
     let noteID = req.params.id;
     let newID = 0;
     console.log(`Deleting note with ID ${noteID}`);
-    savedNotes = savedNotes.filter(currNote => {
+    savedNote = savedNote.filter(currNote => {
         return currNote.id != noteID;
     })
     for (currNote of savedNotes) {
@@ -32,7 +32,9 @@ app.delete("/api/notes/:id", function (req, res) {
         newID++;
     }
 
-    fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
-    res.json(savedNotes);
+    fs.writeFileSync("../db/db.json", JSON.stringify(savedNotes));
+    res.json(savedNote);
 });
 }
+
+
