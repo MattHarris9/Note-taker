@@ -18,7 +18,7 @@ require("./routes/htmlRoutes")(app);
 
 
 //app.use ("/",htmlRoutes)
-// app.use(express.static(path.join(__dirname, "./assets/style.css")));
+//app.use(express.static(path.join(__dirname, "./assets/style.css")));
 
 
 
