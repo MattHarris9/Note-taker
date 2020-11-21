@@ -1,4 +1,5 @@
 const path = require("path");
+const express = require("express");
 const fs = require("fs");
 
 module.exports = function(app){
@@ -35,6 +36,10 @@ app.delete("/api/notes/:id", function (req, res) {
     fs.writeFileSync("../db/db.json", JSON.stringify(savedNotes));
     res.json(savedNote);
 });
+
+app.use(express.static(path.join(__dirname, "../assets/style.css")));
+
 }
+
 
 
