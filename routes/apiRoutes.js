@@ -1,40 +1,42 @@
 const path = require("path");
 const express = require("express");
 const fs = require("fs");
+let json = require("../db/db.json");
 
 module.exports = function(app){
-app.get("/api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
-    res.json(savedNotes[Number9(req.params.id)]);
+app.get("/api/notes", function(req, res) {
+    //let savedNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
+    //res.json(savedNotes[Number9(req.params.id)]);
+    res.json(json);
 });
 
 app.post("/api/notes", function(req, res) {
-    let savedNote = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
+    //let savedNote = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
     let newNote = req.body;
-    let uniqueID = (savedNote.length).toString();
-    newNote.id= uniqueID;
-    savedNotes.push(newNote);
+    let id = (json.length + 1);
+    newNote.id= id;
+    json.push(newNote);
 
-    fs.writeFileSync("./db/ds.json", JSON.stringify(savedNotes));
-    console.log("Note saved to ds.json. Content: ", newNote);
-    res.json(savedNotes);
+    fs.writeFileSync("../db/db.json", JSON.stringify(json));
+    console.log("Note saved to db.json. Content: ", newNote);
+    res.json(newNote);
 });
 
-app.delete("/api/notes/:id", function (req, res) {
-    let savedNote = JSON.parse(fs.writeFileSync("../db/db.json", "utf8"));
+app.delete("/api/notes/", function (req, res) {
+    //let savedNote = JSON.parse(fs.writeFileSync("../db/db.json", "utf8"));
     let noteID = req.params.id;
     let newID = 0;
     console.log(`Deleting note with ID ${noteID}`);
-    savedNote = savedNote.filter(currNote => {
+    json = json.filter(currNote => {
         return currNote.id != noteID;
     })
-    for (currNote of savedNotes) {
+    for (currNote of json) {
         currNote.id = newID.toString();
         newID++;
     }
 
-    fs.writeFileSync("../db/db.json", JSON.stringify(savedNotes));
-    res.json(savedNote);
+    fs.writeFileSync("../db/db.json", JSON.stringify(json));
+    res.json(json);
 });
 
 app.use(express.static(path.join(__dirname, "../assets/style.css")));
