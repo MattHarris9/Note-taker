@@ -19,20 +19,20 @@ app.post("/api/notes", function(req, res) {
 
     fs.writeFileSync("../db/db.json", JSON.stringify(json));
     console.log("Note saved to db.json. Content: ", newNote);
-    res.json(newNote);
+    res.json(json);
 });
 
 app.delete("/api/notes/", function (req, res) {
     //let savedNote = JSON.parse(fs.writeFileSync("../db/db.json", "utf8"));
-    let noteID = req.params.id;
-    let newID = 0;
+    let noteid = req.params.id;
+    let newid = 0;
     console.log(`Deleting note with ID ${noteID}`);
     json = json.filter(currNote => {
-        return currNote.id != noteID;
+        return currNote.id != noteid;
     })
     for (currNote of json) {
-        currNote.id = newID.toString();
-        newID++;
+        currNote.id = newid.toString();
+        newid++;
     }
 
     fs.writeFileSync("../db/db.json", JSON.stringify(json));
